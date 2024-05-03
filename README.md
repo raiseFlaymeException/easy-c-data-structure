@@ -39,7 +39,7 @@ see the file example_* to see some example program
 
 ## Contributing
 
-Feel free to contibute [Open an issue](https://github.com/raiseFlaymeException/comment_jump/issues/new) or submit PRs.
+Feel free to contibute [Open an issue](https://github.com/raiseFlaymeException/easy-c-data-structure/issues/new) or submit PRs.
 
 ## License
 
