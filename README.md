@@ -16,11 +16,15 @@ The library will certainely change
 
 ## Install
 
-headers are in [src/include][src/include]
+headers are in [src/include](src/include)
 
 compile a c file:
 ```cmd
 make run_<filename>
+```
+or 
+```cmd
+gcc -o <filename.exe> <filename.c> -L src/include
 ```
 
 ## Usage
