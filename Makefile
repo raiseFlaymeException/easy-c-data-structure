@@ -26,12 +26,18 @@ QUIET = > nul 2>&1
 
 LIB =
 
-all: bin/example_array.exe bin/example_string.exe bin/_dev_hash_map.exe
+all: bin/example_array.exe bin/example_string.exe bin/example_hashmap.exe
 
 bin/%.exe: %.c $(COMPILED)
 	$(CC) $< $(COMPILED) -o $@ $(LIB) -I $(HEADERDIR) -L $(LIBDIR) $(WARNING) $(STANDARD)
 
-bin/%_debug.exe: %.c $(SOURCES)
+bin/example_array_debug.exe: example_array.c $(SOURCES)
+	$(CC) -ggdb3 $< $(COMPILED) -o $@ $(LIB) -I $(HEADERDIR) -L $(LIBDIR) $(WARNING) $(STANDARD)
+
+bin/example_string_debug.exe: example_string.c $(SOURCES)
+	$(CC) -ggdb3 $< $(COMPILED) -o $@ $(LIB) -I $(HEADERDIR) -L $(LIBDIR) $(WARNING) $(STANDARD)
+
+bin/example_hashmap_debug.exe: example_hashmap.c $(SOURCES)
 	$(CC) -ggdb3 $< $(COMPILED) -o $@ $(LIB) -I $(HEADERDIR) -L $(LIBDIR) $(WARNING) $(STANDARD)
 
 run_debug_%: bin/%_debug.exe
@@ -43,7 +49,7 @@ run_example_array: bin/example_array.exe
 run_example_string: bin/example_string.exe
 	./$<
 
-run_dev_hash_map: bin/_dev_hash_map.exe
+run_example_hashmap: bin/example_hashmap.exe
 	./$<
 
 

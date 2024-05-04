@@ -12,13 +12,13 @@
 ///     String)
 /// @param[in] type the type of the elements in the array (example: char)
 ///
-#define CARRAY_CREATE_DECLARATION_STRUCT(name, type)                           \
-  struct name {                                                                \
-    type *data;                                                                \
-    size_t size;                                                               \
-    size_t cap;                                                                \
-  };                                                                           \
-  typedef struct name name;
+#define CARRAY_CREATE_DECLARATION_STRUCT(name, type)                                               \
+    struct name {                                                                                  \
+        type  *data;                                                                               \
+        size_t size;                                                                               \
+        size_t cap;                                                                                \
+    };                                                                                             \
+    typedef struct name name;
 
 ///
 /// @brief create the declaration of the array only for the struct part
@@ -29,12 +29,12 @@
 ///     created and potentially "polute the namespace") (example: String)
 /// @param[in] type the type of the elements in the array (example: char)
 ///
-#define CARRAY_CREATE_DECLARATION_STRUCT_NOTD(name, type)                      \
-  struct name {                                                                \
-    type *data;                                                                \
-    size_t size;                                                               \
-    size_t cap;                                                                \
-  };
+#define CARRAY_CREATE_DECLARATION_STRUCT_NOTD(name, type)                                          \
+    struct name {                                                                                  \
+        type  *data;                                                                               \
+        size_t size;                                                                               \
+        size_t cap;                                                                                \
+    };
 
 ///
 /// @brief create the declaration of the array only for the struct part
@@ -50,12 +50,12 @@
 ///     created and potentially "polute the namespace") (example: String)
 /// @param[in] type the type of the elements in the array (example: char)
 ///
-#define CARRAY_CREATE_DECLARATION_STRUCT_NOTDSC(name, type)                    \
-  struct name {                                                                \
-    type *data;                                                                \
-    size_t size;                                                               \
-    size_t cap;                                                                \
-  }
+#define CARRAY_CREATE_DECLARATION_STRUCT_NOTDSC(name, type)                                        \
+    struct name {                                                                                  \
+        type  *data;                                                                               \
+        size_t size;                                                                               \
+        size_t cap;                                                                                \
+    }
 
 ///
 /// @brief create the declaration of the array only for the function part
@@ -67,14 +67,11 @@
 ///     (example: String)
 /// @param[in] type the type of the elements in the array (example: char)
 ///
-#define CARRAY_CREATE_DECLARATION_FUNCTION(name, type)                         \
-  void name##_alloc(struct name *array, size_t cap);                           \
-                                                                               \
-  void name##_free(struct name *array);                                        \
-                                                                               \
-  void name##_expend(struct name *array);                                      \
-                                                                               \
-  void name##_append(struct name *array, type value);
+#define CARRAY_CREATE_DECLARATION_FUNCTION(name, type)                                             \
+    void name##_alloc(struct name *array, size_t cap);                                             \
+    void name##_free(struct name *array);                                                          \
+    void name##_extend(struct name *array, size_t size);                                           \
+    void name##_append(struct name *array, type value);
 
 ///
 /// @brief create the declaration of the array, if you need more control see
@@ -84,9 +81,9 @@
 /// String)
 /// @param[in] type the type of the elements in the array (example: char)
 ///
-#define CARRAY_CREATE_DECLARATION(name, type)                                  \
-  CARRAY_CREATE_DECLARATION_STRUCT(name, type)                                 \
-  CARRAY_CREATE_DECLARATION_FUNCTION(name, type)
+#define CARRAY_CREATE_DECLARATION(name, type)                                                      \
+    CARRAY_CREATE_DECLARATION_STRUCT(name, type)                                                   \
+    CARRAY_CREATE_DECLARATION_FUNCTION(name, type)
 
 ///
 /// @brief create the declaration of the array, if you need more control see
@@ -96,9 +93,9 @@
 /// String)
 /// @param[in] type the type of the elements in the array (example: char)
 ///
-#define CARRAY_CREATE_DECLARATION_NOTD(name, type)                             \
-  CARRAY_CREATE_DECLARATION_STRUCT_NOTD(name, type)                            \
-  CARRAY_CREATE_DECLARATION_FUNCTION(name, type)
+#define CARRAY_CREATE_DECLARATION_NOTD(name, type)                                                 \
+    CARRAY_CREATE_DECLARATION_STRUCT_NOTD(name, type)                                              \
+    CARRAY_CREATE_DECLARATION_FUNCTION(name, type)
 
 ///
 /// @brief create the definition of the array. You need to call
@@ -107,25 +104,22 @@
 /// @param[in] name the name of the struct created in the declaration
 /// @param[in] type the type of the struct created in the declaration
 ///
-#define CARRAY_CREATE_DEFINITION(name, type)                                   \
-  void name##_alloc(struct name *array, size_t cap) {                          \
-    array->data = (type *)malloc(cap * sizeof(type));                          \
-    array->size = 0;                                                           \
-    array->cap = cap;                                                          \
-  }                                                                            \
-                                                                               \
-  void name##_free(struct name *array) { free(array->data); }                  \
-                                                                               \
-  void name##_expend(struct name *array) {                                     \
-    if (array->size + 1 >= array->cap) {                                       \
-      array->cap *= 2;                                                         \
-      array->data = (type *)realloc(array->data, array->cap * sizeof(type));   \
-    }                                                                          \
-  }                                                                            \
-                                                                               \
-  void name##_append(struct name *array, type value) {                         \
-    name##_expend(array);                                                      \
-    array->data[array->size++] = value;                                        \
-  }
+#define CARRAY_CREATE_DEFINITION(name, type)                                                       \
+    void name##_alloc(struct name *array, size_t cap) {                                            \
+        array->data = (type *)malloc(cap * sizeof(type));                                          \
+        array->size = 0;                                                                           \
+        array->cap  = cap;                                                                         \
+    }                                                                                              \
+    void name##_free(struct name *array) { free(array->data); }                                    \
+    void name##_extend(struct name *array, size_t size) {                                          \
+        if (array->size + size >= array->cap) {                                                    \
+            array->cap *= 2;                                                                       \
+            array->data = (type *)realloc(array->data, array->cap * sizeof(type));                 \
+        }                                                                                          \
+    }                                                                                              \
+    void name##_append(struct name *array, type value) {                                           \
+        name##_extend(array, 1);                                                                   \
+        array->data[array->size++] = value;                                                        \
+    }
 
 #endif // CARRAY_CREATOR_H
