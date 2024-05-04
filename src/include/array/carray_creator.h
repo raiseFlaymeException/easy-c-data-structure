@@ -112,13 +112,13 @@
     }                                                                                              \
     void name##_free(struct name *array) { free(array->data); }                                    \
     void name##_extend(struct name *array, size_t size) {                                          \
-        if (array->size + size >= array->cap) {                                                    \
-            array->cap *= 2;                                                                       \
+        if (size >= array->cap) {                                                                  \
+            array->cap  = size;                                                                    \
             array->data = (type *)realloc(array->data, array->cap * sizeof(type));                 \
         }                                                                                          \
     }                                                                                              \
     void name##_append(struct name *array, type value) {                                           \
-        name##_extend(array, 1);                                                                   \
+        if (array->size + 1 >= array->cap) { name##_extend(array, array->cap * 2); }               \
         array->data[array->size++] = value;                                                        \
     }
 
