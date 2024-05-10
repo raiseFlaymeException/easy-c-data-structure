@@ -1,9 +1,10 @@
-#include "string/sstring.h"
+#include "easy_c_data_structure/simple_string/sstring.h"
 
+#define DEFAULT_STRING_CAP 16
 
 int main() {
     SString string;
-    SString_alloc(&string, 16);
+    SString_alloc(&string, DEFAULT_STRING_CAP);
 
     printf("Write someting: ");
 

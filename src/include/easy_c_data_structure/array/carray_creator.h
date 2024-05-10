@@ -71,7 +71,9 @@
     void name##_alloc(struct name *array, size_t cap);                                             \
     void name##_free(struct name *array);                                                          \
     void name##_extend(struct name *array, size_t size);                                           \
-    void name##_append(struct name *array, type value);
+    void name##_append(struct name *array, type value);                                            \
+    void name##_append_ptr(struct name *array, const type *value);                                 \
+    void name##_pop(struct name *array, size_t idx);
 
 ///
 /// @brief create the declaration of the array, if you need more control see
@@ -120,6 +122,14 @@
     void name##_append(struct name *array, type value) {                                           \
         if (array->size + 1 >= array->cap) { name##_extend(array, array->cap * 2); }               \
         array->data[array->size++] = value;                                                        \
+    }                                                                                              \
+    void name##_append_ptr(struct name *array, const type *value) {                                \
+        if (array->size + 1 >= array->cap) { name##_extend(array, array->cap * 2); }               \
+        array->data[array->size++] = *value;                                                       \
+    }                                                                                              \
+    void name##_pop(struct name *array, size_t idx) {                                              \
+        array->size--;                                                                             \
+        for (; idx < array->size; idx++) { array->data[idx] = array->data[idx + 1]; }              \
     }
 
 #endif // CARRAY_CREATOR_H
