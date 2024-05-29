@@ -40,8 +40,11 @@ bin/example_string_debug.exe: example_string.c $(SOURCES)
 bin/example_hashmap_debug.exe: example_hashmap.c $(SOURCES)
 	$(CC) -ggdb3 $< $(COMPILED) -o $@ $(LIB) -I $(HEADERDIR) -L $(LIBDIR) $(WARNING) $(STANDARD)
 
-run_debug_%: bin/%_debug.exe
-	$(DEBUG) $<
+bin/example_arena_debug.exe: example_arenea.c $(SOURCES)
+	$(CC) -ggdb3 $< $(COMPILED) -o $@ $(LIB) -I $(HEADERDIR) -L $(LIBDIR) $(WARNING) $(STANDARD)
+
+bin/example_queue_debug.exe: example_queue.c $(SOURCES)
+	$(CC) -ggdb3 $< $(COMPILED) -o $@ $(LIB) -I $(HEADERDIR) -L $(LIBDIR) $(WARNING) $(STANDARD)
 
 run_example_array: bin/example_array.exe
 	./$<
@@ -52,6 +55,11 @@ run_example_string: bin/example_string.exe
 run_example_hashmap: bin/example_hashmap.exe
 	./$<
 
+run_example_arena: bin/example_arena.exe
+	./$<
+
+run_example_queue: bin/example_queue.exe
+	./$<
 
 src/c/%.o: src/c/%.c
 	$(CC) -c $< -o $@ -I $(HEADERDIR) $(WARNINGS) $(STANDARD) $(OPTI)
