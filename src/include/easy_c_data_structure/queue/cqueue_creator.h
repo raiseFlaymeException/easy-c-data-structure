@@ -51,13 +51,13 @@
         queue->tail              = (queue->tail + 1) % queue->cap;                                 \
         ++queue->size;                                                                             \
     }                                                                                              \
-    char name##_peek(name *queue) {                                                                \
+    type name##_peek(name *queue) {                                                                \
         assert(queue->size != 0);                                                                  \
         return queue->data[queue->head];                                                           \
     }                                                                                              \
-    char name##_pop(name *queue) {                                                                 \
+    type name##_pop(name *queue) {                                                                 \
         assert(queue->size != 0);                                                                  \
-        char res = name##_peek(queue);                                                             \
+        type res = name##_peek(queue);                                                             \
                                                                                                    \
         queue->head = (queue->head + 1) % queue->cap;                                              \
         --queue->size;                                                                             \
