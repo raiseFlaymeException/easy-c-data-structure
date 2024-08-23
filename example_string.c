@@ -1,3 +1,4 @@
+#define SSTRING_IMPL
 #include "easy_c_data_structure/simple_string/sstring.h"
 
 #define DEFAULT_STRING_CAP 16

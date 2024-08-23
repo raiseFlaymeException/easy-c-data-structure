@@ -120,11 +120,11 @@
         }                                                                                          \
     }                                                                                              \
     void name##_append(struct name *array, type value) {                                           \
-        if (array->size + 1 >= array->cap) { name##_extend(array, array->cap * 2); }               \
+        if (array->size + 1 >= array->cap) { name##_extend(array, array->cap << 1); }              \
         array->data[array->size++] = value;                                                        \
     }                                                                                              \
     void name##_append_ptr(struct name *array, const type *value) {                                \
-        if (array->size + 1 >= array->cap) { name##_extend(array, array->cap * 2); }               \
+        if (array->size + 1 >= array->cap) { name##_extend(array, array->cap << 1); }              \
         array->data[array->size++] = *value;                                                       \
     }                                                                                              \
     void name##_pop(struct name *array, size_t idx) {                                              \

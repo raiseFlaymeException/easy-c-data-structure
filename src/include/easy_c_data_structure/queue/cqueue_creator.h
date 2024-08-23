@@ -17,7 +17,7 @@
     void name##_alloc(name *queue, size_t cap);                                                    \
     void name##_free(name *queue);                                                                 \
     void name##_push(name *queue, type element);                                                   \
-    type name##_peek(name *queue);                                                                 \
+    type name##_peek(const name *queue);                                                           \
     type name##_pop(name *queue);
 
 #define CQUEUE_CREATE_DECLARATION(name, type)                                                      \
@@ -51,7 +51,7 @@
         queue->tail              = (queue->tail + 1) % queue->cap;                                 \
         ++queue->size;                                                                             \
     }                                                                                              \
-    type name##_peek(name *queue) {                                                                \
+    type name##_peek(const name *queue) {                                                          \
         assert(queue->size != 0);                                                                  \
         return queue->data[queue->head];                                                           \
     }                                                                                              \
